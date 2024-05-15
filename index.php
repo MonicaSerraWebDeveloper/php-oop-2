@@ -1,53 +1,22 @@
 <?php
 
-class Shop {
-    public $name;
-    public $products;
-   
-
-    public function __construct($_name) {
-        $this->name = $_name;
-    }
-
-    public function addProduct(Product $_product) {
-        $this->products[] =  $_product;
-    }
-}
-
-class Product {
-    public $name;
-    public $price;
-    public $quantity;
-    public $category;
-
-    public function __construct($_name, $_price, $_quantity, $_category) {
-        $this->name = $_name;
-        $this->price = $_price;
-        $this->quantity = $_quantity;
-        $this->category = $_category;
-    }
-}
-
-class Category {
-    public $name;
-
-    public function __construct($_name) {
-        $this->name = $_name;
-    }
-}
+require_once __DIR__ . '/Models/Product.php';
+require_once __DIR__ . '/Models/Category.php';
+require_once __DIR__ . '/Models/Shop.php';
 
 $shop = new Shop('Pet Shop');
 
 $dogCategory = new Category('dog');
+$dogKibble = new Product('Pedrigree', 17.99, 4, $dogCategory);
+$shop->addProduct($dogKibble);
+
 $catCategory = new Category('cat');
+$catFood = new Product('Cesar', 14.99, 6, $catCategory);
+$shop->addProduct($catFood);
 
-$dogKibble = new Product('Pedrigree', 17,99, 4, $dogCategory);
-$shop->addProduct($dogKibble );
+var_dump($dogKibble);
+var_dump($catFood);
 
-$catFood = new Product('Cesar', 14,99, 6, $catCategory);
-$shop->addProduct($catFood );
-
-var_dump($shop)
 
 
 ?>
