@@ -1,24 +1,32 @@
 <?php
 
-require_once __DIR__ . '/Models/DogCategory.php';
-require_once __DIR__ . '/Models/CatCategory.php';
+require_once __DIR__ . '/Models/Product.php';
+require_once __DIR__ . '/Models/Food.php';
+require_once __DIR__ . '/Models/Bowl.php';
 require_once __DIR__ . '/Models/Category.php';
 require_once __DIR__ . '/Models/Shop.php';
 
 $shop = new Shop('Pet Shop');
 
-$dogCategory = new Category('Dog');
-$dogKibble = new Product('Pedrigree', 17.99, 4, $dogCategory);
-$dogToy = new Product('DoggyToy', 22.99, 6, $dogCategory);
-$shop->addProduct($dogKibble);
-$shop->addProduct($dogToy);
+// Dog Products
+$dogCategory = new Category('Cane');
+$bowlDisney = new Bowl('Ciotola Topolino', 22.99, 6, $dogCategory, 'Sticker Topolino');
+$crocchette = new Food('Pedigree', 23.79, 9, $dogCategory, 'Manzo');
+var_dump($crocchette);
+var_dump($bowlDisney);
 
 
-$catCategory = new Category('Cat');
-$catFood = new Product('Cesar', 14.99, 6, $catCategory);
-$scratchingPost = new Product('Scratching Kitty', 14.99, 6, $catCategory);
-$shop->addProduct($catFood);
-$shop->addProduct($scratchingPost);
+// Cats Products
+$catCategory = new Category('Gatto');
+$catFood = new Food('Cesar', 14.99, 6, $catCategory, 'Pesce');
+$bowlAristocats = new Bowl('Ciotola Aristogatti', 24.99, 6, $catCategory, 'Sticker Aristogatti');
+
+$products = [
+    $crocchette,
+    $bowlDisney,
+    $catFood,
+    $bowlAristocats
+];
 
 ?>
 
@@ -33,11 +41,19 @@ $shop->addProduct($scratchingPost);
 <body>
 
     <div class="product-container">
-        <?php foreach($shop->products as $product) {  ?>
+        <?php foreach($products as $product) {  ?>
+            <?php
+                $className = get_class($product);
+            ?>
         <div class="single-product">
-            <h2><?php echo $product->name ?></h2>
-            <p>€ <?php echo $product->price ?></p>
-            <div>Categoria: <?php echo $product->category->name ?></div>
+            <h2><?php echo $product->name; ?></h2>
+            <p>€ <?php echo $product->price; ?></p>
+            <div>Categoria: <?php echo $product->category->name; ?></div>
+            <?php if($className === 'Food') { ?>
+                <div>Ingrediente: <?php echo $product->type; ?></div>
+            <?php } elseif ($className === 'Bowl') { ?>
+                <div>Colore: <?php echo $product->color; ?></div>
+            <?php } ?>
         </div>
         <?php }?>
     </div>
