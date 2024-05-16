@@ -11,18 +11,14 @@ $dogCategory = new Category('Dog');
 $dogKibble = new Product('Pedrigree', 17.99, 4, $dogCategory);
 $dogToy = new Product('DoggyToy', 22.99, 6, $dogCategory);
 $shop->addProduct($dogKibble);
+$shop->addProduct($dogToy);
+
 
 $catCategory = new Category('Cat');
 $catFood = new Product('Cesar', 14.99, 6, $catCategory);
 $scratchingPost = new Product('Scratching Kitty', 14.99, 6, $catCategory);
 $shop->addProduct($catFood);
-
-$products = [
-    $dogKibble,
-    $dogToy,
-    $catFood,
-    $scratchingPost,
-]
+$shop->addProduct($scratchingPost);
 
 ?>
 
@@ -37,7 +33,7 @@ $products = [
 <body>
 
     <div class="product-container">
-        <?php foreach($products as $product) {  ?>
+        <?php foreach($shop->products as $product) {  ?>
         <div class="single-product">
             <h2><?php echo $product->name ?></h2>
             <p>€ <?php echo $product->price ?></p>
